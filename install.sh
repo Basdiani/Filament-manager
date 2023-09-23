@@ -35,8 +35,24 @@ link_extension()
     echo "Copying Filament.cfg to printer_data/config/"
     cp "${HOME}/filament-manager/Filaments.cfg" "${HOME}/printer_data/config/"
 
+     # Copy Filament.cfg to printer_data/config/
+    echo "Copying Filament.cfg to printer_1_data/config/"
+    cp "${HOME}/filament-manager/Filaments.cfg" "${HOME}/printer_1_data/config/"
+
+         # Copy Filament.cfg to printer_data/config/
+    echo "Copying Filament.cfg to printer_2_data/config/"
+    cp "${HOME}/filament-manager/Filaments.cfg" "${HOME}/printer_2_data/config/"
+
     # Copy Variables.cfg to printer_data/config/
     echo "Copying Variables.cfg to printer_data/config/"
+    cp "${HOME}/filament-manager/Variables.cfg" "${HOME}/printer_data/config/"
+
+    # Copy Variables.cfg to printer_data/config/
+    echo "Copying Variables.cfg to printer_1_data/config/"
+    cp "${HOME}/filament-manager/Variables.cfg" "${HOME}/printer_data/config/"
+
+    # Copy Variables.cfg to printer_data/config/
+    echo "Copying Variables.cfg to printer_2_data/config/"
     cp "${HOME}/filament-manager/Variables.cfg" "${HOME}/printer_data/config/"
 }
 
