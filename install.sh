@@ -62,39 +62,52 @@ ready()
     echo "[READY] You are ready."
 }
 
-# Function to check if [include Filaments.cfg] is present in ~/printer_data/config/printer.cfg and add it if not
-check_include_line()
-{
-    local config_file="${HOME}/printer_data/config/printer.cfg"
-    if grep -q -F '[include Filaments.cfg]' "$config_file"; then
-        echo "[CONFIGURATION] The 'include Filaments.cfg' line was found in $config_file."
-    else
-        echo "[CONFIGURATION] The 'include Filaments.cfg' line was not found in $config_file. Adding it..."
-        sed -i "1i[include Filaments.cfg]" "$config_file"
-        echo "[CONFIGURATION] The 'include Filaments.cfg' line was added to the beginning of $config_file."
-    fi
+#!/bin/bash
+
+# Funktion zum Hinzufügen von [include Filaments.cfg] in die printer.cfg-Dateien
+add_include_line() {
+    local start_directory="$1"
+
+    # Suche nach allen printer.cfg-Dateien im Startverzeichnis und seinen Unterordnern
+    find "$start_directory" -name "printer.cfg" -print | while read -r config_file; do
+        if grep -q -F '[include Filaments.cfg]' "$config_file"; then
+            echo "[CONFIGURATION] Die Zeile 'include Filaments.cfg' wurde in $config_file gefunden."
+        else
+            echo "[CONFIGURATION] Die Zeile 'include Filaments.cfg' wurde in $config_file nicht gefunden. Füge sie hinzu..."
+            sed -i "1i[include Filaments.cfg]" "$config_file"
+            echo "[CONFIGURATION] Die Zeile 'include Filaments.cfg' wurde am Anfang von $config_file hinzugefügt."
+        fi
+    done
 }
 
-# Function to check and add update_manager configuration
+# Verwenden Sie die Funktion mit einem Startverzeichnis (zum Beispiel das Heimatverzeichnis des Benutzers)
+add_include_line "$HOME"
+
+# Funktion zur Überprüfung und Hinzufügung der update_manager-Konfiguration in allen moonraker.conf-Dateien
 check_update_manager()
 {
-    local config_file="${HOME}/printer_data/config/moonraker.conf"
-    if grep -q -F '[update_manager client Filaments]' "$config_file"; then
-        echo "[CONFIGURATION] The section '[update_manager client Filaments]' was found."
-    else
-        echo "[CONFIGURATION] The section '[update_manager client Filaments]' was not found. Adding it..."
-        echo "" >> "$config_file"  # Add an empty line
-        cat <<EOF >> "$config_file"
+    local config_files=($(find "${HOME}" -type f -name "moonraker.conf"))
+
+    for config_file in "${config_files[@]}"; do
+        if grep -q -F '[update_manager client Filaments]' "$config_file"; then
+            echo "[CONFIGURATION] The section '[update_manager client Filaments]' was found in $config_file."
+        else
+            echo "[CONFIGURATION] The section '[update_manager client Filaments]' was not found in $config_file. Adding it..."
+            echo "" >> "$config_file"  # Add an empty line
+            cat <<EOF >> "$config_file"
 [update_manager client Filaments]
 type: git_repo
-path: ~/filament-manager
-origin: https://github.com/Basdiani/filament-manager.git
+path: ~/filaments-klipper-extra
+primary_branch: mainline
+origin: https://github.com/basdiani/filaments-klipper-extra.git
 install_script: install.sh
 managed_services: klipper
 EOF
-        echo "[CONFIGURATION] The section '[update_manager client Filaments]' was added to $config_file with an empty line at the end."
-    fi
+            echo "[CONFIGURATION] The section '[update_manager client Filaments]' was added to $config_file with an empty line at the end."
+        fi
+    done
 }
+
 
 # Function to create a configuration backup
 create_config_backup()
@@ -120,8 +133,6 @@ verify_ready()
     fi
 }
 
-# Enable script termination on errors
-set -e
 
 # Determine SRCDIR from the path of this script
 SRCDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/ && pwd )"
