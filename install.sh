@@ -88,7 +88,6 @@ check_update_manager()
 [update_manager client Filaments]
 type: git_repo
 path: ~/filaments-klipper-extra
-primary_branch: mainline
 origin: https://github.com/Basdiani/Filament_manager.git
 install_script: install.sh
 managed_services: klipper
