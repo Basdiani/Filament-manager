@@ -18,6 +18,7 @@ Clone this git repo to your printers home directory (e.g. /home/pi):
 ```bash
 git clone https://github.com/Basdiani/filament-manager.git
 cd ~/filament-manager
+chmod +x install.sh
 ./install.sh
 ```
 
