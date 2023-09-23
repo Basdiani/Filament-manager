@@ -17,7 +17,7 @@ Clone this git repo to your printers home directory (e.g. /home/pi):
 
 ```bash
 git clone https://github.com/Basdiani/Filament_manager.git
-cd ~/filaments-klipper-extra
+cd ~/Filament_manager
 ./install.sh
 ```
 
