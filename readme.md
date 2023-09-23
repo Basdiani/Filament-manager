@@ -31,6 +31,8 @@ Then run the install script. The install script assumes that Klipper is also ins
 Optionally you can tell Moonraker's update manager about this plugin by 
 adding this configuration block to the `moonraker.conf` of your printer:
 
+NORMALY IT DOES AUTOMATICLY ADD THIS!!
+
 ```text
 [update_manager client Filaments]
 type: git_repo
@@ -44,37 +46,18 @@ managed_services: klipper
 
 # Config Reference
 This extra requires that you have [save_variables] set up. If you don't it will throw an exception on startup. See [documentation](https://www.klipper3d.org/Config_Reference.html#save_variables).
+INSTALLATION DOES THIS NORMALY AUTOMATICLY!!
 
-## [filaments]
-
-Filament Presets. Associate a filament preset with each extruder, manage presets and preset driven heating tasks.
-
-```
-[filaments]
-#on_set_filament_gcode:
-#   A list of G-Code commands to execute after the SET_FILAMENT macro runs. See
-#   docs/Command_Templates.md for G-Code format. These parameters are passed 
-#   to the gcode:
-#   * 'EXTRUDER' - the name of the extruder. 'extruder', 'extruder1' etc.
-#   * 'T' - the integer index of the extruder
-#   * 'PRESET' - the filament preset that was just assigned to th extruder
-#   * 'LAST_PRESET' - the filament preset that was previously assigned to the extruder, if any
-#on_clear_filament_gcode:
-#   A list of G-Code commands to execute after the CLEAR_FILAMENT macro runs. See
-#   docs/Command_Templates.md for G-Code format. These parameters are pass to the gcode:
-#   * 'EXTRUDER' - the name of the extruder. 'extruder', 'extruder1' etc.
-#   * 'T' - the integer index of the extruder
-#   * 'LAST_PRESET' - the filament preset that was previously assigned to the extruder, if any
-```
-
-----
 
 # G-Code Commands
 These commands handle basic tasks for filament presets
 
+### I ALSO SET UP SOME VARIABLES AND GCODE MACROS TO MAKE UR LIFE EASYER, LOOK FOR COMMENTS IN FILAMENTS.CFG
+
 ### [filament]
 The following commands are available when a 
 [filaments config section](#filaments) is enabled.
+#This Makros are the Base Makros inside the Filament Program and can be used also by CONSOLE commands:
 
 #### SETUP_FILAMENT
 `SETUP_FILAMENT NAME=<value> [EXTRUDER=<extruder_temp>] [BED=<bed_temp>] [PROPERTY_NAME=<python_literal>]`: 
@@ -286,6 +269,32 @@ $ SET_FILAMENT NAME=PLA
 $ CLEAR_FILAMENT
 // Filament Cleared. extruder: extruder, T=0, last_preset: {'name': 'PLA', 'extruder': 215.5, 'bed': 45.0}
 ```
+
+AUTOMATIC FOR STARTCODE AND PRESSURE ADVANCE SETTING BASED ON FILAMENT:
+
+PLEASE TAKE A LOOK INTO THE FILAMENTS.CFG TO SET YOUR VARIABLES RIGHT.
+
+TO SET AUTO PRESSURE ADVANCE SET UR SLICER GCODE LIKE THIS:
+
+##CURA
+```
+Print_Start  MATERIAL={material_name}
+```
+
+##ORCASLICER
+```
+Print_Start MATERIAL=[filament_type]
+```
+
+ADD 
+```
+  {% set MATERIAL = params.MATERIAL|default("XXX")|string %}
+
+    MATERIAL NAME={MATERIAL}
+
+```
+TO YOUR STARTCODE
+
 
 I'm not super familiar with what people are using the gcode blocks in the existing front ends for but hopefully this is more useful and maintainable. This also has the benefit of
 working across all front ends hooked up to klipper without having to copy your gcode to multiple places. Feedback is welcome.
