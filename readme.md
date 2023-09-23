@@ -1,4 +1,5 @@
 FIRTS THINGS FIRST THIS IS A MODIFIED VERSION OF garethky´s version.
+TAKE YOUR TIME TO CHECK HIS GITHUB https://github.com/garethky
 
 ## ⚠️ WARNING
 
