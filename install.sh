@@ -87,8 +87,8 @@ check_update_manager()
         cat <<EOF >> "$config_file"
 [update_manager client Filaments]
 type: git_repo
-path: ~/filaments-klipper-extra
-origin: https://github.com/Basdiani/Filament_manager.git
+path: ~/filament-manager
+origin: https://github.com/Basdiani/filament-manager.git
 install_script: install.sh
 managed_services: klipper
 EOF
