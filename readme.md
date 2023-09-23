@@ -16,7 +16,7 @@ I'll take this warning down when the code is well tested and the GCode interface
 Clone this git repo to your printers home directory (e.g. /home/pi):
 
 ```bash
-git clone https://github.com/basdiani/filaments-klipper-extra.git
+git clone https://github.com/Basdiani/Filament_manager.git
 cd ~/filaments-klipper-extra
 ./install.sh
 ```
@@ -32,7 +32,7 @@ adding this configuration block to the `moonraker.conf` of your printer:
 type: git_repo
 path: ~/filaments-klipper-extra
 primary_branch: mainline
-origin: (https://github.com/Basdiani/Filament_manager.git)
+origin: https://github.com/Basdiani/Filament_manager.git
 install_script: install.sh
 managed_services: klipper
 ```
