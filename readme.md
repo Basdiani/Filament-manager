@@ -16,7 +16,7 @@ I'll take this warning down when the code is well tested and the GCode interface
 Clone this git repo to your printers home directory (e.g. /home/pi):
 
 ```bash
-git clone https://github.com/Basdiani/Filament_manager.git
+git clone https://github.com/Basdiani/Filament-manager.git
 cd ~/Filament_manager
 ./install.sh
 ```
