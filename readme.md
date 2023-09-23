@@ -32,7 +32,7 @@ adding this configuration block to the `moonraker.conf` of your printer:
 type: git_repo
 path: ~/filaments-klipper-extra
 primary_branch: mainline
-origin: https://github.com/basdiani/filaments-klipper-extra.git
+origin: (https://github.com/Basdiani/Filament_manager.git)
 install_script: install.sh
 managed_services: klipper
 ```
