@@ -89,7 +89,7 @@ check_update_manager()
 type: git_repo
 path: ~/filaments-klipper-extra
 primary_branch: mainline
-origin: https://github.com/Basdiani/filaments-klipper-extra.git
+origin: https://github.com/Basdiani/Filament_manager.git
 install_script: install.sh
 managed_services: klipper
 EOF
